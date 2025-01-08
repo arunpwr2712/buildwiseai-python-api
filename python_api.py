@@ -12,6 +12,12 @@ from prompts import get_system_prompt
 # Initialize Flask app
 app = Flask(__name__)
 
+@app.after_request
+def add_headers(response):
+    response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
+    response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
+    return response
+
 load_dotenv()
 
 # Get the API key from environment variables
